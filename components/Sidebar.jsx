@@ -1,6 +1,7 @@
 "use client"
 import { navItems } from "@/constants";
 import { cn } from "@/lib/utils";
+import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -63,17 +64,8 @@ export default function Sidebar() {
             />
 
             <div className="sidebar-user-info">
-                <Image 
-                src="/assets/images/avatar.png"
-                alt="Avatar"
-                width={44}
-                height={44}
-                className="sidebar-user-avatar"
-                />
-                <div className="hidden lg:block">
-                    {/* <p className="subtitle-2 capitalize">{fullName}</p> */}
-                    {/* <p className="caption">{email}</p> */}
-                </div>
+                
+                <UserButton showName={true} />
             </div>
         </aside>
     );

@@ -1,5 +1,4 @@
 "use client";
-"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,8 +17,9 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { createAccount } from "@/lib/actions/user.actions";
 import OTPModal from './OTPModal';
+
+
 const formSchema = z.object({
     fullName: z.string().min(2, {
         message: "FullName must be at least 2 characters.",
@@ -32,7 +32,6 @@ const formSchema = z.object({
 export default function AuthForm({ type }) {
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [accountId,setAccountId]=useState(null)
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -43,24 +42,7 @@ export default function AuthForm({ type }) {
     });
 
     const onSubmit = async (values) => {
-        setLoading(true);
-        setErrorMessage(null);
-
-        try{
-            const user=await createAccount({
-                fullName:values.fullName || "",
-                email:values.email
-            })
-            setAccountId(user.accountId)
-            console.log("request send")
-            
-        } catch (error) {
-            setErrorMessage("Failed to create account");
-            
-        }
-        finally{
-            setLoading(false);
-        }
+        console.log(values);
 
     };
     return (
@@ -137,7 +119,7 @@ export default function AuthForm({ type }) {
                                                 <Input
                                                     placeholder="Enter your email"
                                                     {...field}
-                                                    className="shad-input"
+                                                    className="shad-input outline-none border-0 bg-transparent shadow-none"
                                                 />
                                             </FormControl>
                                         </div>
@@ -177,7 +159,7 @@ export default function AuthForm({ type }) {
                     </div>
                 </form>
             </Form>
-            {accountId && <OTPModal email={form.getValues('email')} accountId={accountId} />}
+            {true && <OTPModal email={form.getValues('email')} />}
         </>
     );
 }

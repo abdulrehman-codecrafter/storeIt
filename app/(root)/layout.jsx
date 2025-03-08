@@ -14,6 +14,8 @@ export default async function Layout({children}) {
             </div>
             <section className="flex h-full flex-1 flex-col">
                 {/* <FileUploader /> */}
+                <MobileNavigatoin />
+
                 <Header />
                 <div className="main-content">{children}</div>
             </section>
