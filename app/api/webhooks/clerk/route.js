@@ -62,26 +62,27 @@ export async function POST(req) {
 
 
 
-    try{
+    try {
         const user = {
-            clerkId: id,
+          clerkId: id,
           email: email_addresses[0].email_address,
           ...(first_name ? { firstName: first_name } : {}),
           ...(last_name ? { lastName: last_name } : {}),
           ...(image_url ? { imageUrl: image_url } : {})
-        }
-        await dbConnect()
-        const newUser= new User(user) 
-        await newUser.save()
-    
-        console.log(user)
-    }catch(err){
-        return new Response(JSON.stringify({
-            error:err,
-            message:"Error creating db"
-        }), { status: 404 })
-
-    }
+        };
+        await dbConnect();
+        const newUser = new User(user);
+        await newUser.save();
+        console.log(user);
+      } catch (err) {
+        return new Response(
+          JSON.stringify({
+            error: err,
+            message: "Error creating db"
+          }),
+          { status: 404 }
+        );
+      }
 
 
   }
