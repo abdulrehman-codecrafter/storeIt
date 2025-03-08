@@ -68,6 +68,8 @@ export async function POST(req: Request) {
       ...(image_url ? { imageUrl: image_url } : {})
     }
 
+    console.log(user)
+
 
   }
 
