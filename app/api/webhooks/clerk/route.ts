@@ -4,7 +4,7 @@ import { WebhookEvent } from '@clerk/nextjs/server'
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET
-
+    
   if (!WEBHOOK_SECRET) {
     throw new Error(
       'Please add CLERK_WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local'
@@ -58,6 +58,8 @@ export async function POST(req: Request) {
       })
     }
 
+
+
     const user = {
       clerkUserId: id,
       email: email_addresses[0].email_address,
@@ -66,9 +68,8 @@ export async function POST(req: Request) {
       ...(image_url ? { imageUrl: image_url } : {})
     }
 
-    console.log(user)
 
   }
 
-  return new Response('', { status: 200 })
+  return new Response('Created successfully', { status: 200 })
 }
