@@ -3,8 +3,8 @@ import { headers } from 'next/headers';
 import User from '../../../../models/user-model';
 import dbConnect from '../../../../lib/mongodb';
 
-export async function POST(req: Request) {
-  const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
+export async function POST(req) {
+  const WEBHOOK_SECRET = process.env.SIGNING_SECRET;
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
