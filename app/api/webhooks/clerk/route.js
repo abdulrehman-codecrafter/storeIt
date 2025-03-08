@@ -2,6 +2,7 @@ import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import dbConnect from "@/lib/mongodb"
 import User from "@/models/user-model"
+import mongoose from 'mongoose'
 
 
 export async function POST(req) {
@@ -71,6 +72,7 @@ export async function POST(req) {
           ...(image_url ? { imageUrl: image_url } : {})
         };
         await dbConnect();
+        console.log("db connected",mongoose.connection.readyState)
         const newUser = new User(user);
         await newUser.save();
         console.log(user);
