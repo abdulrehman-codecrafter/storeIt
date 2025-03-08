@@ -20,7 +20,7 @@ import Image from "next/image";
 // import { Models } from "node-appwrite";
 import { actionsDropdownItems } from "@/constants";
 import Link from "next/link";
-import { constructDownloadUrl } from "@/lib/utils";
+// import { constructDownloadUrl } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 // import {
@@ -158,7 +158,7 @@ const ActionDropdown = ({ file }) => {
                 }
               }}
             >
-              {actionItem.value === "download" ? (
+              {/* {actionItem.value === "download" ? (
                 <Link
                   href={constructDownloadUrl(file.bucketFileId)}
                   download={file.name}
@@ -182,7 +182,7 @@ const ActionDropdown = ({ file }) => {
                   />
                   {actionItem.label}
                 </div>
-              )}
+              )} */}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
