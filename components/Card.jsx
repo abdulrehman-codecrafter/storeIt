@@ -2,11 +2,17 @@
 import Link from "next/link";
 import Thumbnail from "@/components/Thumbnail";
 import FormattedDataTime from "@/components/FormattedDataTime";
-import ActionDropdown from "@/components/ActionDropdown";
- 
+// import ActionDropdown from "@/components/ActionDropdown";
+import Image from "next/image";
+
 const Card = ({ file }) => {
     return (
-        <Link href={file.fileUrl} download={true} target="_blank" className="file-card w-[250px]">
+        <Link
+            href={file.fileUrl}
+            download={true}
+            target="_blank"
+            className="file-card w-[250px]"
+        >
             <div className="flex justify-between">
                 <Thumbnail
                     type={file.fileType}
@@ -17,7 +23,13 @@ const Card = ({ file }) => {
                 />
 
                 <div className="flex flex-col items-end justify-between bg-white ">
-                    <ActionDropdown file={file} />
+                    {/* <ActionDropdown file={file} /> */}
+                    <Image
+                        src="/assets/icons/dots.svg"
+                        alt="dots"
+                        width={25}
+                        height={25}
+                    />
                 </div>
             </div>
 
@@ -28,7 +40,7 @@ const Card = ({ file }) => {
                     className="body-2 text-light-100"
                 />
                 <p className="caption line-clamp-1 text-light-200">
-                    By: {file.ownerId.firstName + " " + file.ownerId.lastName  }
+                    By: {file.ownerId.firstName + " " + file.ownerId.lastName}
                 </p>
             </div>
         </Link>

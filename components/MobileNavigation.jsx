@@ -13,7 +13,6 @@ import { Separator } from "@radix-ui/react-separator";
 import { navItems } from "@/constants";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import FileUploader from "@/components/FileUploader";
 import { UserButton } from "@clerk/nextjs";
 // import { signOutUser } from "@/lib/actions/user.actions";
@@ -91,7 +90,7 @@ const MobileNavigation = () => {
           </nav>
 
           <Separator className="my-5 bg-light-200/20" />
-          <div className="flex justify-center w-full mb-4">
+          <div className="flex justify-center w-full mb-14">
           <FileUploader />
           </div>
          

@@ -2,15 +2,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import ActionDropdown from "@/components/ActionDropdown";
+// import ActionDropdown from "@/components/ActionDropdown";
 import { Thumbnail } from "@/components/Thumbnail";
 import { Separator } from "@/components/ui/separator";
 import Chart from "@/components/Chart";
 import { useFilesContext } from "@/contexts/filesContext";
 import FormattedDateTime from "@/components/FormattedDataTime";
 import { getFileSummaries } from "@/lib/utils";
-
-
 
 const Dashboard = () => {
     const { files, categorizedFiles } = useFilesContext();
@@ -19,12 +17,11 @@ const Dashboard = () => {
               .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
               .slice(0, 10)
         : [];
-    
 
-        const usageSummaries = getFileSummaries(categorizedFiles);
+    const usageSummaries = getFileSummaries(categorizedFiles);
 
     return (
-        <div className="dashboard-container ">
+        <div className="dashboard-container px-4 sm:px-1 ">
             <section>
                 <Chart />
 
@@ -50,18 +47,18 @@ const Dashboard = () => {
                                     </h4>
                                 </div>
 
-                                <h5 className="summary-type-title">{summary.title}</h5>
+                                <h5 className="summary-type-title">
+                                    {summary.title}
+                                </h5>
                                 <Separator className="bg-light-400" />
                                 <p className="text-gray-400">Last Update</p>
                                 <FormattedDateTime
                                     date={summary.lastUpdated}
                                     className="text-center text-black"
-                                /> 
+                                />
                             </div>
                         </Link>
                     ))}
-
-                    
                 </ul>
             </section>
 
@@ -85,7 +82,7 @@ const Dashboard = () => {
                                     extension={file.fileExtension}
                                     url={file.fileUrl}
                                     isRecent={true}
-                                    className="w-14 h-9"
+                                    className="w-14 h-10"
                                 />
 
                                 <div className="recent-file-details">
@@ -97,12 +94,18 @@ const Dashboard = () => {
                                             date={file.createdAt}
                                             className="caption"
                                         />
-                                        <p className="caption line-clamp-1 max-w-[300px]">
+                                        <p className="caption line-clamp-1 mt-1 max-w-[300px]">
                                             {file.fileName}
                                         </p>
                                     </div>
 
-                                    <ActionDropdown file={file} />
+                                    <Image
+                                        src="/assets/icons/dots.svg"
+                                        alt="dots"
+                                        width={25}
+                                        height={25}
+                                    />
+                                    {/* <ActionDropdown file={file} /> */}
                                 </div>
                             </Link>
                         ))}

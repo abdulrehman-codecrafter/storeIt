@@ -18,7 +18,7 @@ export default function Others() {
 
     return (
         <div className="flex flex-wrap gap-4 px-7">
-            {categorizedFiles.others.map((file) => (
+            {categorizedFiles.others.map((file,index) => (
                 <BlurFade key={file._id} delay={0.25 + index * 0.05} inView>
                 <Card  file={file} /> 
             </BlurFade>

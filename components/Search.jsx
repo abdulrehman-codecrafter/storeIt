@@ -18,8 +18,9 @@ const Search = () => {
         />
         <Input
         //   value={query}
-          placeholder="Search..."
+          placeholder="Search is disabled for now"
           className="search-input"
+          disabled={true}
         //   onChange={(e) => setQuery(e.target.value)}
         />
 

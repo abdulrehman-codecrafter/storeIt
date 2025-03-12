@@ -30,7 +30,7 @@ const reducer = (state, { type, payload }) => {
                     ),
                     images: files.filter((file) => file.fileType === "image"),
                     media: files.filter((file) => file.fileType === "media"),
-                    others: files.filter((file) => file.fileType === "others"),
+                    others: files.filter((file) => file.fileType === "other"),
                 },
             };
         case "ADD_FILE":
@@ -49,7 +49,7 @@ const reducer = (state, { type, payload }) => {
                         (file) => file.fileType === "media"
                     ),
                     others: updatedFiles.filter(
-                        (file) => file.fileType === "others"
+                        (file) => file.fileType === "other"
                     ),
                 },
             };

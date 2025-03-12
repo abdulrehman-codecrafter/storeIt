@@ -23,7 +23,7 @@ export default function Chart() {
     ];
 
     return (
-        <Card className="flex flex-col bg-brand border-none rounded-3xl p-4">
+        <Card className="flex flex-col bg-brand border-none rounded-3xl  sm:p-4">
             <CardContent className="flex items-center justify-evenly">
                 <div className="relative w-44 h-44 flex items-center justify-center">
                     <RadialBarChart

@@ -26,10 +26,10 @@ async function getLoggedUser() {
             return { error: NextResponse.json({ message: "User not authenticated" }, { status: 401 }) };
         }
 
-        console.log("User authenticated:", primaryEmailAddress);
+        // console.log("User authenticated:", primaryEmailAddress);
 
         await dbConnect();
-        console.log("Database connected");
+        // console.log("Database connected");
 
         const loggedUser = await User.findOne({ email: primaryEmailAddress }).exec();
 
@@ -38,7 +38,7 @@ async function getLoggedUser() {
             return { error: NextResponse.json({ message: "User not found" }, { status: 404 }) };
         }
 
-        console.log("User found:", loggedUser._id);
+        // console.log("User found:", loggedUser._id);
         return { loggedUser };
     } catch (error) {
         console.error("Authentication error:", error);
@@ -76,7 +76,7 @@ export async function POST(request) {
                 {
                     folder: "Demo",
                     resource_type: "auto",
-                    public_id: file.name,
+                    public_id: file.fileName,
                     unique_filename: false,
                     type: "upload",
                 },
@@ -98,7 +98,7 @@ export async function POST(request) {
         });
 
         const savedFile = await newFile.save();
-
+        await savedFile.populate("ownerId")
         return NextResponse.json(
             {
                 savedFile
