@@ -1,45 +1,35 @@
 // import { Models } from "node-appwrite";
 import Link from "next/link";
 import Thumbnail from "@/components/Thumbnail";
-import { convertFileSize } from "@/lib/utils";
-// import FormattedDateTime from "@/components/FormattedDateTime";
+import FormattedDataTime from "@/components/FormattedDataTime";
 import ActionDropdown from "@/components/ActionDropdown";
-const file = {
-    $id: "2",
-    name: "Document 2",
-    type: "docx",
-    extension: "docx",
-    url: "/path/to/document2.docx",
-    $createdAt: new Date().toISOString(),
-};
-
-const Card = ({}) => {
+ 
+const Card = ({ file }) => {
     return (
-        <Link href={file.url} target="_blank" className="file-card">
+        <Link href={file.fileUrl} download={true} target="_blank" className="file-card w-[250px]">
             <div className="flex justify-between">
                 <Thumbnail
-                    type={file.type}
-                    extension={file.extension}
-                    url={file.url}
+                    type={file.fileType}
+                    extension={file.fileExtension}
+                    url={file.fileUrl}
                     className="!size-20"
                     imageClassName="!size-11"
                 />
 
-                <div className="flex flex-col items-end justify-between">
+                <div className="flex flex-col items-end justify-between bg-white ">
                     <ActionDropdown file={file} />
-                    <p className="body-1">{convertFileSize(file.size)}</p>
                 </div>
             </div>
 
             <div className="file-card-details">
-                <p className="subtitle-2 line-clamp-1">{file.name}</p>
-                {/* <FormattedDateTime
-          date={file.$createdAt}
-          className="body-2 text-light-100"
-        /> */}
-                {/* <p className="caption line-clamp-1 text-light-200">
-          By: {file.owner.fullName}
-        </p> */}
+                <p className="subtitle-2 line-clamp-1">{file.fileName}</p>
+                <FormattedDataTime
+                    date={file.createdAt}
+                    className="body-2 text-light-100"
+                />
+                <p className="caption line-clamp-1 text-light-200">
+                    By: {file.ownerId.firstName + " " + file.ownerId.lastName  }
+                </p>
             </div>
         </Link>
     );

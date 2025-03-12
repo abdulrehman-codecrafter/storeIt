@@ -63,9 +63,16 @@ export default function Sidebar() {
             className="w-full hidden lg:block"
             />
 
-            <div className="sidebar-user-info">
+            {/* <div className="sidebar-user-info hidden">
                 
+                <UserButton  showName={true} />
+            </div> */}
+
+            <div className="hidden py-2 px-5 rounded-2xl  mt-3 bg-[#f2f4f86c] lg:flex">
                 <UserButton showName={true} />
+            </div>
+            <div className="lg:hidden py-2 px-2.5 rounded-2xl  mt-3 bg-[#f2f4f86c]">
+                <UserButton />
             </div>
         </aside>
     );

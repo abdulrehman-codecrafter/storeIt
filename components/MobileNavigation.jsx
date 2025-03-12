@@ -15,6 +15,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import FileUploader from "@/components/FileUploader";
+import { UserButton } from "@clerk/nextjs";
 // import { signOutUser } from "@/lib/actions/user.actions";
 
 
@@ -43,10 +44,10 @@ const MobileNavigation = () => {
             className="cursor-pointer"
           />
         </SheetTrigger>
-        <SheetContent className="shad-sheet h-screen px-3">
+        <SheetContent className="shad-sheet h-screen px-3 bg-white">
           <SheetTitle>
             <div className="header-user">
-              <Image
+              {/* <Image
                 src="/assets/images/avatar.jpg"
                 alt="avatar"
                 width={44}
@@ -56,7 +57,8 @@ const MobileNavigation = () => {
               <div className="sm:hidden lg:block">
                 <p className="subtitle-2 capitalize">Mani</p>
                 <p className="caption">mani@gmail.com</p>
-              </div>
+              </div> */}
+              <UserButton showName={true} />
             </div>
             <Separator className="mb-4 bg-light-200/20" />
           </SheetTitle>
@@ -81,7 +83,7 @@ const MobileNavigation = () => {
                         pathname === url && "nav-icon-active",
                       )}
                     />
-                    <p>{name}</p>
+                    <p >{name}</p>
                   </li>
                 </Link>
               ))}
@@ -89,23 +91,10 @@ const MobileNavigation = () => {
           </nav>
 
           <Separator className="my-5 bg-light-200/20" />
-
-          <div className="flex flex-col justify-between gap-5 pb-5">
-            {/* <FileUploader ownerId={ownerId} accountId={accountId} /> */}
-            <Button
-              type="submit"
-              className="mobile-sign-out-button"
-              onClick={async () => await signOutUser()}
-            >
-              <Image
-                src="/assets/icons/logout.svg"
-                alt="logo"
-                width={24}
-                height={24}
-              />
-              <p>Logout</p>
-            </Button>
+          <div className="flex justify-center w-full mb-4">
+          <FileUploader />
           </div>
+         
         </SheetContent>
       </Sheet>
     </header>

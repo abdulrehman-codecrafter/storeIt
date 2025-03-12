@@ -64,27 +64,33 @@ export async function POST(req) {
 
 
     try {
-        const user = {
+        await dbConnect();
+      
+        const userData = {
           clerkId: id,
           email: email_addresses[0].email_address,
           ...(first_name ? { firstName: first_name } : {}),
           ...(last_name ? { lastName: last_name } : {}),
           ...(image_url ? { imageUrl: image_url } : {})
         };
-        await dbConnect();
-        console.log("db connected",mongoose.connection.readyState)
-        const newUser = new User(user);
-        await newUser.save();
-        console.log(user);
+        
+        console.log(userData)
+
+        const newUser = await User.findOneAndUpdate(
+          { clerkId: id }, // Check by Clerk ID
+          userData,
+          { new: true, upsert: true, setDefaultsOnInsert: true } // Upsert ensures user is created if not found
+        );
+      
+        console.log("User created/updated:", newUser);
       } catch (err) {
+        console.error("Error creating/updating user:", err);
         return new Response(
-          JSON.stringify({
-            error: err,
-            message: "Error creating db"
-          }),
-          { status: 404 }
+          JSON.stringify({ error: err.message, message: "Error creating db" }),
+          { status: 500 }
         );
       }
+      
 
 
   }

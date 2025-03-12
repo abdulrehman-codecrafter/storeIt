@@ -17,10 +17,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import Image from "next/image";
-// import { Models } from "node-appwrite";
 import { actionsDropdownItems } from "@/constants";
 import Link from "next/link";
-// import { constructDownloadUrl } from "@/lib/utils";
+import { constructDownloadUrl } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 // import {
@@ -30,20 +29,11 @@ import { Button } from "@/components/ui/button";
 // } from "@/lib/actions/file.actions";
 import { usePathname } from "next/navigation";
 // import { FileDetails, ShareInput } from "@/components/ActionsModalContent";
-const file = {
-    $id: "1",
-    name: "file1",
-    bucketFileId: "1",
-    type: "file",
-    extension: "txt",
-    url: "https://example.com",
-    size: 100,
-    $createdAt: "2022-01-01",
-    owner: {
-      fullName: "John Doe",
-    },
-    };
-const ActionDropdown = ({ file }) => {
+
+const file={
+    name:"Doc"
+}
+const ActionDropdown = ({  }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [action, setAction] = useState(null);
@@ -58,16 +48,41 @@ const ActionDropdown = ({ file }) => {
     setIsDropdownOpen(false);
     setAction(null);
     setName(file.name);
-      setEmails([]);
+    //   setEmails([]);
   };
 
   const handleAction = async () => {
-    
+    // if (!action) return;
+    // setIsLoading(true);
+    // let success = false;
+
+    // // const actions = {
+    // //   rename: () =>
+    // //     renameFile({ fileId: file.$id, name, extension: file.extension, path }),
+    // //   share: () => updateFileUsers({ fileId: file.$id, emails, path }),
+    // //   delete: () =>
+    // //     deleteFile({ fileId: file.$id, bucketFileId: file.bucketFileId, path }),
+    // // };
+
+    // success = await actions[action.values]();
+
+    // if (success) closeAllModals();
+
+    // setIsLoading(false);
   };
 
-  const handleRemoveUser = async (email) => {
-    console.log("Removing user", email);
-  };
+//   const handleRemoveUser = async (email) => {
+//     const updatedEmails = emails.filter((e) => e !== email);
+
+//     const success = await updateFileUsers({
+//       fileId: file.$id,
+//       emails: updatedEmails,
+//       path,
+//     });
+
+//     if (success) setEmails(updatedEmails);
+//     closeAllModals();
+//   };
 
   const renderDialogContent = () => {
     if (!action) return null;
@@ -84,7 +99,7 @@ const ActionDropdown = ({ file }) => {
             <Input
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+            //   onChange={(e) => setName(e.target.value)}
             />
           )}
           {value === "details" && <FileDetails file={file} />}
@@ -92,7 +107,7 @@ const ActionDropdown = ({ file }) => {
             <ShareInput
               file={file}
               onInputChange={setEmails}
-              onRemove={handleRemoveUser}
+            //   onRemove={handleRemoveUser}
             />
           )}
           {value === "delete" && (
@@ -128,17 +143,16 @@ const ActionDropdown = ({ file }) => {
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-        <DropdownMenuTrigger className="shad-no-focus">
+        <DropdownMenuTrigger className="shad-no-focus cursor-pointer">
           <Image
             src="/assets/icons/dots.svg"
             alt="dots"
-            width={27}
-            height={27}
-            className="cursor-pointer"
+            width={25}
+            height={25}
           />
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel className="max-w-[200px] truncate">
+        <DropdownMenuContent className="bg-white py-2 pb-3 px-2 shadow-md rounded-xl border-2 border-[#e27d7fcf]">
+          <DropdownMenuLabel className="w-[170px] truncate ">
             {file.name}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
@@ -158,9 +172,10 @@ const ActionDropdown = ({ file }) => {
                 }
               }}
             >
-              {/* {actionItem.value === "download" ? (
+              {actionItem.value === "download" ? (
                 <Link
-                  href={constructDownloadUrl(file.bucketFileId)}
+                //   href={constructDownloadUrl(file.bucketFileId)}
+                href={"/documents"}
                   download={file.name}
                   className="flex items-center gap-2"
                 >
@@ -182,7 +197,7 @@ const ActionDropdown = ({ file }) => {
                   />
                   {actionItem.label}
                 </div>
-              )} */}
+              )}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
