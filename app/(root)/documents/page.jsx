@@ -2,27 +2,25 @@
 import React from "react";
 import Card from "@/components/Card";
 import { useFilesContext } from "@/contexts/filesContext";
-import { Skeleton } from "@/components/ui/skeleton";
+import { BlurFade } from "@/components/magicui/blur-fade";
 
 export default function Documents() {
-    
-    const {categorizedFiles}=useFilesContext()
+    const { categorizedFiles } = useFilesContext();
 
-    if (!categorizedFiles) {
+    if (categorizedFiles?.documents.length === 0) {
         return (
             <div className="flex flex-wrap gap-4 px-7">
-                {/* Example skeleton layout */}
-                {Array(3).fill(0).map((_, index) => (
-                    <Skeleton key={index} className="w-64 h-40" />
-                ))}
+                <div className="">Nothing to show up</div>
             </div>
         );
     }
 
     return (
         <div className="flex flex-wrap gap-4 px-7">
-            {categorizedFiles.documents.map((file) => (
-                <Card key={file._id} file={file} /> // Pass file data to Card
+            {categorizedFiles.documents.map((file, index) => (
+                <BlurFade key={file._id} delay={0.25 + index * 0.05} inView>
+                    <Card file={file} />
+                </BlurFade>
             ))}
         </div>
     );
