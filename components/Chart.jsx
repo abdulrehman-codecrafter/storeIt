@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { RadialBarChart, RadialBar, PolarAngleAxis } from "recharts";
 import { Card, CardContent } from "@/components/ui/card";
 import { useFilesContext } from "@/contexts/filesContext";
-import { Skeleton } from "./ui/skeleton";
-import { Loader, Loader2 } from "lucide-react";
 
 const MAX_FILES = 50; // Total limit
 

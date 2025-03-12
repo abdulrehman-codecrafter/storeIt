@@ -2,7 +2,6 @@ import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import dbConnect from "@/lib/mongodb"
 import User from "@/models/user-model"
-import mongoose from 'mongoose'
 
 
 export async function POST(req) {
