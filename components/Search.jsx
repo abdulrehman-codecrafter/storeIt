@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, Suspense } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -9,10 +8,10 @@ import Thumbnail from "@/components/Thumbnail";
 import FormattedDataTime from "@/components/FormattedDataTime";
 import { useFilesContext } from "@/contexts/filesContext";
 
+// Define the Search component
 const Search = () => {
   const [query, setQuery] = useState("");
   const searchParams = useSearchParams();
-
   const searchQuery = searchParams.get("query") || "";
 
   const [results, setResults] = useState([]);
@@ -21,7 +20,7 @@ const Search = () => {
   const router = useRouter();
   const path = usePathname();
 
-  const {files}=useFilesContext()
+  const { files } = useFilesContext();
 
   useEffect(() => {
     const fetchFiles = async () => {
@@ -31,16 +30,15 @@ const Search = () => {
         return router.push(path.replace(searchParams.toString(), ""));
       }
 
-      
-      const filteredDocuments=files?.filter((file)=>{
-        return file.fileName.toLowerCase().includes(query)
-      })
-      setResults(filteredDocuments)
+      const filteredDocuments = files?.filter((file) =>
+        file.fileName.toLowerCase().includes(query)
+      );
+      setResults(filteredDocuments);
       setOpen(true);
     };
 
     fetchFiles();
-  }, [query]);
+  }, [query, files, path, router, searchParams]);
 
   useEffect(() => {
     if (!searchQuery) {
@@ -51,9 +49,8 @@ const Search = () => {
   const handleClickItem = (file) => {
     setOpen(false);
     setResults([]);
-
     router.push(
-      `/${file.fileType === "media" ? "media" : file.fileType + "s"}/${file._id}`,
+      `/${file.fileType === "media" ? "media" : file.fileType + "s"}/${file._id}`
     );
   };
 
@@ -93,7 +90,6 @@ const Search = () => {
                       {file.fileName}
                     </p>
                   </div>
-
                   <FormattedDataTime
                     date={file.createdAt}
                     className="caption line-clamp-1 text-light-200"
@@ -110,4 +106,11 @@ const Search = () => {
   );
 };
 
-export default Search;
+// Wrap the Search component in Suspense for the page
+const SearchWithSuspense = () => (
+  <Suspense fallback={<div>Loading search...</div>}>
+    <Search />
+  </Suspense>
+);
+
+export default SearchWithSuspense;
