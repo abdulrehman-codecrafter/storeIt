@@ -11,13 +11,16 @@ const userSchema = new mongoose.Schema({
     },
     lastName: {
         type: String,
-
     },
     email: {
         type: String,
         required: true,
         unique: true,
         trim: true
+    },
+    uploadLimit:{
+        type:Number,
+        default:50
     },
     imageUrl: {
         type:String

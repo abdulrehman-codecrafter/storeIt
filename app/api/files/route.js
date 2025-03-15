@@ -20,7 +20,7 @@ cloudinary.config({
 async function getLoggedUser() {
     try {
         const { emailAddresses } = await currentUser();
-        const primaryEmailAddress=emailAddresses[0].emailAddress
+        const primaryEmailAddress = emailAddresses[0].emailAddress
         if (!primaryEmailAddress) {
             console.warn("User not authenticated");
             return { error: NextResponse.json({ message: "User not authenticated" }, { status: 401 }) };
@@ -54,7 +54,10 @@ export async function POST(request) {
         // 🔹 Fetch logged-in user
         const { loggedUser, error } = await getLoggedUser();
         if (error) return error;
+        if (loggedUser.uploadLimit === 0) {
+            return NextResponse.json({ error: "Max Upload Limit Reached" }, { status: 400 });
 
+        }
         // 🔹 Parse file upload
         const formData = await request.formData();
         const file = formData.get("file");
@@ -98,6 +101,8 @@ export async function POST(request) {
         });
 
         const savedFile = await newFile.save();
+        const uploadLimit = loggedUser.uploadLimit - 1
+        await User.findByIdAndUpdate(loggedUser._id, { uploadLimit })
         await savedFile.populate("ownerId")
         return NextResponse.json(
             {

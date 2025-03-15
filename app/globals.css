@@ -424,7 +424,10 @@ thumbnail {
   .chart-container {
     @apply mx-auto aspect-square w-[180px] text-white xl:w-[250px] ;
   }
-  
+  .cl-internal-1hbg5dc:focus{
+    transition-property:none;
+    box-shadow: none;
+  }
 @media screen and (max-width: 500px) {
     .cl-signUp-root, .cl-signUp-start, .cl-signIn-start, .cl-signIn-root ,.cl-signIn-emailCode{
         width: 370px;

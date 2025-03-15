@@ -12,10 +12,11 @@ import { Button } from "./ui/button";
 import { FileInput } from "@/components/ui/file-input";
 import { useState } from "react";
 import { useFilesContext } from "@/contexts/filesContext";
+import { toast } from "sonner";
 
-export default function UploadDrawer({ isOpen, setIsOpen,showToast }) {
+export default function UploadDrawer({ isOpen, setIsOpen }) {
     const [files, setFiles] = useState([]);
-    const { dispatch } = useFilesContext();
+    const { dispatch,toastVisible } = useFilesContext();
 
     const handleFileUpload = (files) => {
         setFiles(files);
@@ -28,6 +29,9 @@ export default function UploadDrawer({ isOpen, setIsOpen,showToast }) {
         const formData = new FormData();
         formData.append("file", file);
         try {
+            if(toastVisible){
+                return toast.error("Another Uploading In progress")
+            }
             setIsOpen(false)
             dispatch({ type: "SHOW_TOAST" });
             const response = await fetch("/api/files", {

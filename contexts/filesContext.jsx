@@ -2,6 +2,7 @@
 
 import { useContext, useEffect, useReducer } from "react";
 import { createContext } from "react";
+import { useAuth } from "@clerk/nextjs"; // Assuming Next.js; adjust for React if needed
 
 const FilesContext = createContext();
 
@@ -59,7 +60,6 @@ const reducer = (state, { type, payload }) => {
             return { ...state, toastVisible: false };
         case "HIDE_FILES_LOADING":
             return { ...state, filesLoading: false };
-
         default:
             return state;
     }
@@ -67,6 +67,8 @@ const reducer = (state, { type, payload }) => {
 
 export default function FilesContextProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const { isSignedIn, userId } = useAuth(); // Clerk hook to track auth state
+
     const fetchFiles = async () => {
         try {
             const result = await fetch("/api/files", {
@@ -75,7 +77,7 @@ export default function FilesContextProvider({ children }) {
             const data = await result.json();
             dispatch({ type: "SET_FILES", payload: data.files });
         } catch (err) {
-            console.log(err);
+            console.log("Failed to fetch files:", err);
         } finally {
             dispatch({ type: "HIDE_FILES_LOADING" });
         }
@@ -83,7 +85,7 @@ export default function FilesContextProvider({ children }) {
 
     useEffect(() => {
         fetchFiles();
-    }, []);
+    }, [isSignedIn, userId]); // Refetch when auth state changes
 
     return (
         <FilesContext.Provider value={{ ...state, dispatch }}>
