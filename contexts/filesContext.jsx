@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useReducer } from "react";
 import { createContext } from "react";
-import { useAuth } from "@clerk/nextjs"; // Assuming Next.js; adjust for React if needed
+import { useAuth } from "@clerk/nextjs"; 
 
 const FilesContext = createContext();
 
